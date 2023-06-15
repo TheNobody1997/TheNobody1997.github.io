@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Блокнот</title>
+    <link rel="stylesheet" href="st.css">
+</head>
+<body onload="loadData();">
+    <form class="menu1">
+        <a class="button2">Блокнот</a>
+        <a href="f3.html" class="button">Избранное</a>
+        <a href="f2.html" class="button">Поиск</a>
+    </form>
+    <div style="margin: 1vh;">
+        <input type="text" id="message">
+        <button onclick="addElement();">Добавить</button>
+        <button onclick="clearData();">Очистить всё.</button>
+        <div id="messages"></div>
+        <div id="messages2" style="color: red; visibility: hiden;"></div>
+    </div>
+    <script>
+        function addElement() {
+            let input = document.getElementById('message');
+            let div = document.getElementById('messages');
+            let p = document.createElement('p');
+            let but = document.createElement('button');
+            let but2 = document.createElement('button');
+            p.innerText = `${input.value} `;
+            but.innerText = "Удалить";
+            but.setAttribute("onclick", "deleteElement(this); return false;");
+            but.className = "delete";
+            but2.innerText = "Избранное";
+            but2.setAttribute("onclick", "addElement2(this); return false;");
+            input.value = '';
+            p.appendChild(but2);
+            p.appendChild(but);
+            div.appendChild(p);
+            localStorage.messages = div.innerHTML;
+        }
+        function addElement2 (el){
+            let div = document.getElementById('messages');
+            let div2 = document.getElementById('messages2');
+            let inp = document.createElement('p');
+            el.setAttribute("onclick", "deleteElement2(this); return false;");
+            el.innerText = "Из избранного";
+            div2.appendChild(el.parentNode);
+            localStorage.messages = div.innerHTML;
+            localStorage.messages3 = div2.innerHTML;
+        }
+        function deleteElement2 (el){
+            let div = document.getElementById('messages');
+            let div2 = document.getElementById('messages2');
+            el.setAttribute("onclick", "addElement2(this); return false;");
+            el.innerText = "Избранное";
+            div.appendChild(el.parentNode);
+            //div2.removeChild(el.parentNode);
+            localStorage.messages = div.innerHTML;
+            localStorage.messages3 = div2.innerHTML;
+        }
+        function deleteElement (el){
+            let div = document.getElementById('messages');
+            document.getElementById('messages').removeChild(el.parentNode);
+            localStorage.messages = div.innerHTML;
+        }
+        function loadData (){
+            let div = document.getElementById('messages');
+            let div2 = document.getElementById('messages2');
+            div.innerHTML = localStorage.messages;
+            div2.innerHTML = localStorage.messages3;
+        }
+        function clearData (){
+            let div = document.getElementById('messages');
+            div.innerHTML = '';
+            localStorage.messages = '';
+        }
+    </script>
+</body>

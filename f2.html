@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Поиск</title>
+    <link rel="stylesheet" href="st.css">
+</head>
+<body onload="loadData();">
+    <form class="menu1">
+        <a href="index.html" class="button">Блокнот</a>
+        <a href="f3.html" class="button">Избранное</a>
+        <a class="button2">Поиск</a>
+    </form>
+    <div style="margin: 1vh;">
+        <input type="text" id="message">
+        <button onclick="find();">Поиск</button>
+    </div>
+    <p>История:</p>
+    <div id="messages">
+    </div>
+    <button onclick="clearData();">Очистить</button>
+    <script>
+         function find() {
+            let input = document.getElementById('message');
+            let div = document.getElementById('messages');
+            let p = document.createElement('p');
+            p.innerText = input.value;
+            div.appendChild(p);
+            localStorage.messages2 = div.innerHTML;
+            window.location.href = input.value;
+            input.value = '';
+        }
+        function loadData (){
+            let div = document.getElementById('messages');
+            div.innerHTML = localStorage.messages2;
+        }
+        function clearData (){
+            let div = document.getElementById('messages');
+            div.innerHTML = '';
+            localStorage.messages2 = '';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Избранное</title>
+    <link rel="stylesheet" href="st.css">
+</head>
+<body onload="loadData();">
+    <form class="menu1">
+        <a href="index.html" class="button">Блокнот</a>
+        <a class="button2">Избранное</a>
+        <a href="f2.html" class="button">Поиск</a>
+    </form>
+    <div style="margin: 1vh;">
+        <p style="font-size: 2.5vh">Избранное:</p>
+        <div id="messages"></div>
+        <div id="messages2" style="color: red; visibility: hidden;"></div>
+    </div>
+    <script>
+        function loadData (){
+            let div = document.getElementById('messages');
+            div.innerHTML = localStorage.messages3;
+            let div2 = document.getElementById('messages2');
+            div2.innerHTML = localStorage.messages;
+        }
+        function deleteElement (el){
+            let div = document.getElementById('messages');
+            document.getElementById('messages').removeChild(el.parentNode);
+            localStorage.messages3 = div.innerHTML;
+        }
+        function deleteElement2 (el){
+            let div = document.getElementById('messages');
+            let div2 = document.getElementById('messages2');
+            el.setAttribute("onclick", "addElement2(this); return false;");
+            div2.appendChild(el.parentNode);
+            localStorage.messages = div2.innerHTML;
+            localStorage.messages3 = div.innerHTML;
+        }
+    </script>
+</body>
+</html>
